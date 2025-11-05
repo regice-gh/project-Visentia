@@ -45,10 +45,15 @@ android {
         resources.excludes.add("META-INF/maven/**")
         resources.excludes.add("META-INF/*.version")
         resources.excludes.add("META-INF/*.txt")
+        jniLibs {
+            pickFirsts += setOf(
+                "lib/arm64-v8a/libtokenizers.so",
+                "lib/arm64-v8a/libjnidispatch.so",
+                "lib/arm64-v8a/libonnxruntime4j_jni.so"
+            )
+        }
         // Ensure Android native libraries are included
-        pickFirst("lib/arm64-v8a/libtokenizers.so")
-        pickFirst("lib/arm64-v8a/libjnidispatch.so")
-        pickFirst("lib/arm64-v8a/libonnxruntime4j_jni.so") // Assuming ONNX Runtime's native lib
+        // Assuming ONNX Runtime's native lib
     }
 }
 

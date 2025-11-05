@@ -5,7 +5,9 @@ import java.nio.LongBuffer;
 import java.util.Map;
 
 import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
-import ai.onnxruntime.*;
+import ai.onnxruntime.OnnxTensor;
+import ai.onnxruntime.OrtEnvironment;
+import ai.onnxruntime.OrtSession;
 
 /**
  * Very small helper that:
