@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.eindopdrachtmad"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId = "com.example.eindopdrachtmad"
         minSdk = 26
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         ndk {
@@ -47,20 +47,15 @@ android {
         resources.excludes.add("META-INF/*.txt")
         jniLibs {
             pickFirsts += setOf(
-                "lib/arm64-v8a/libtokenizers.so",
-                "lib/arm64-v8a/libjnidispatch.so",
                 "lib/arm64-v8a/libonnxruntime4j_jni.so"
             )
         }
-        // Ensure Android native libraries are included
-        // Assuming ONNX Runtime's native lib
     }
 }
 
 dependencies {
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.3")
-    implementation("ai.djl.huggingface:tokenizers:0.26.0") // Using 0.26.0 directly
-    // Removed DJL BOM and djl-android dependency to simplify and avoid conflicts
+    // Removed DJL tokenizers - using custom SimpleTokenizer instead for Android compatibility
 }
 
 flutter {

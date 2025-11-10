@@ -12,6 +12,8 @@ class SentimentScreen extends StatefulWidget {
 class _SentimentScreenState extends State<SentimentScreen> {
   final _textController = TextEditingController();
   String? _sentiment;
+  bool _isLoading = false;
+  String? _error;
   final SentimentService _sentimentService = SentimentService();
 
   @override
@@ -24,16 +26,33 @@ class _SentimentScreenState extends State<SentimentScreen> {
     print("[_SentimentScreenState] _predictSentiment called.");
     if (_textController.text.isEmpty) {
       print("[_SentimentScreenState] Text is empty.");
+      setState(() {
+        _error = "Please enter some text to analyze";
+      });
       return;
     }
+    
+    setState(() {
+      _isLoading = true;
+      _error = null;
+      _sentiment = null;
+    });
+    
     print(
         "[_SentimentScreenState] Invoking sentiment prediction for text: ${_textController.text}");
     final prediction =
         await _sentimentService.predictSentiment(_textController.text);
     print("[_SentimentScreenState] Received prediction: $prediction");
+    
     setState(() {
-      _sentiment = prediction;
+      _isLoading = false;
+      if (prediction != null) {
+        _sentiment = prediction;
+      } else {
+        _error = "Failed to analyze sentiment. Check logs for details.";
+      }
     });
+    
     if (_sentiment == null) {
       print(
           "[_SentimentScreenState] Sentiment is null, UI not updated with result.");
@@ -64,10 +83,46 @@ class _SentimentScreenState extends State<SentimentScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _predictSentiment,
-              child: const Text('Analyze Sentiment'),
+              onPressed: _isLoading ? null : _predictSentiment,
+              child: _isLoading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : const Text('Analyze Sentiment'),
             ),
             const SizedBox(height: 24),
+            if (_error != null)
+              Card(
+                elevation: 4.0,
+                color: Colors.red.shade50,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                margin: const EdgeInsets.all(16.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.error_outline, color: Colors.red),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          _error!,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             if (_sentiment != null)
               Card(
                 elevation: 4.0,
@@ -89,7 +144,7 @@ class _SentimentScreenState extends State<SentimentScreen> {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Sentiment Score: $_sentiment',
+                        'Sentiment: $_sentiment',
                         style: const TextStyle(
                             fontSize: 18, color: Colors.black87),
                       ),

@@ -4,7 +4,6 @@ import java.io.File;
 import java.nio.LongBuffer;
 import java.util.Map;
 
-import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
 import ai.onnxruntime.OrtSession;
@@ -21,7 +20,7 @@ public class SentimentPredictor {
     /* =====================  Instance fields ===================== */
     private final OrtEnvironment env;            // ONNX Runtime environment (JNI handles)
     private final OrtSession session;           // The compiled model
-    private final HuggingFaceTokenizer tokenizer;  // Turns text → token‑ids
+    private final SimpleTokenizer tokenizer;  // Turns text → token‑ids
 
     // Human‑readable labels that match the 5‑class output of the model
     private static final String[] LABELS = {
@@ -54,7 +53,7 @@ public class SentimentPredictor {
 
         // Load the tokenizer (the tokenizer.json that came with the model)
         File tokenizerFile = new File(modelDir, "tokenizer.json");
-        tokenizer = HuggingFaceTokenizer.newInstance(tokenizerFile.toPath());
+        tokenizer = new SimpleTokenizer(tokenizerFile);
     }
 
     /* =====================  Public API ===================== */
@@ -70,7 +69,7 @@ public class SentimentPredictor {
          *  ids       → input_ids  (token IDs)
          *  attention → attention_mask (1 for real tokens, 0 for padding)
          */
-        var encoded = tokenizer.encode(text);
+        SimpleTokenizer.EncodedInput encoded = tokenizer.encode(text);
         long[] inputIds = encoded.getIds();
         long[] attentionMask = encoded.getAttentionMask();
 
