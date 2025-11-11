@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # eindopdrachtmad
 
 A fun flutter project where i learn to implement Machine Learning
@@ -15,3 +16,7 @@ which got me interested since i myself am into Machine Learning.
 so i made this project were i take it just one step further.
 
 Copyright (c) 2020, Marcos Carlomagno All rights reserved
+=======
+# project-Visentia
+a flutter Application where i use Sentiment Prediction use multilingual sentiment analysis model and a Camera recognition model in real time 
+>>>>>>> 136e2a5994ebac73cad7a398d4dc534bdda35a91
