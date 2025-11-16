@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'weather_detail.screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -128,6 +130,22 @@ class _MainScreenState extends State<MainScreen> {
                           fontSize: 16,
                           color: Colors.grey,
                         ),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => WeatherDetailScreen(
+                                temperature: _temperature,
+                                isDay: _isDay,
+                                weatherTimeUnix: _weatherTimeUnix,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text('Bekijk details'),
                       ),
                     ],
                   ),

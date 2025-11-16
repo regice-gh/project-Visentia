@@ -8,11 +8,9 @@ import 'package:eindopdrachtmad/screens/about.screen.dart';
 late List<CameraDescription> cameras;
 
 Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Obtain a list of the available cameras on the device.
+  // List of cameras on device.
   cameras = await availableCameras();
 
   runApp(const MyApp());
@@ -57,10 +55,7 @@ class _MainNavigationState extends State<MainNavigation> {
     _widgetOptions = <Widget>[
       const MainScreen(),
       const SentimentScreen(),
-      // Pass isActive to Home. The initial value depends on selectedIndex.
-      Home(
-          camera: cameras[0],
-          isActive: selectedIndex == 2), // Assuming camera is at index 2
+      Home(camera: cameras[0], isActive: selectedIndex == 2),
       const AboutScreen(),
     ];
   }
@@ -68,7 +63,6 @@ class _MainNavigationState extends State<MainNavigation> {
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
-      // Re-initialize _widgetOptions to update the isActive state for Home
       _initializeWidgetOptions();
     });
   }
