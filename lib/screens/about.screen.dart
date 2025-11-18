@@ -25,7 +25,7 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
             SizedBox(height: 12),
             Text(
-              'Deze app laat zien hoe je weerdata, sentiment analyse en cameravisie combineert in Flutter.',
+              'Deze app laat zien hoe je weerdata en sentimentanalyse combineert in Flutter.',
             ),
             SizedBox(height: 24),
             Text(
@@ -34,9 +34,6 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
             SizedBox(height: 8),
             Text('- http (MIT License) – opgehaald van pub.dev'),
-            Text('- camera (BSD License) – opgehaald van pub.dev'),
-            Text(
-                '- tflite_flutter (Apache 2.0 License) – opgehaald van pub.dev'),
             SizedBox(height: 24),
             Text(
               'Licenties voor assets:',

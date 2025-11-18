@@ -1,18 +1,10 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:eindopdrachtmad/screens/home.screen.dart';
-import 'package:eindopdrachtmad/screens/camera/home.dart';
-import 'package:eindopdrachtmad/screens/sentiment.screen.dart';
+
 import 'package:eindopdrachtmad/screens/about.screen.dart';
+import 'package:eindopdrachtmad/screens/home.screen.dart';
+import 'package:eindopdrachtmad/screens/sentiment.screen.dart';
 
-late List<CameraDescription> cameras;
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // List of cameras on device.
-  cameras = await availableCameras();
-
+void main() {
   runApp(const MyApp());
 }
 
@@ -42,28 +34,15 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int selectedIndex = 0;
 
-  // Using late to initialize after cameras are available, and making it mutable
-  late List<Widget> _widgetOptions;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeWidgetOptions();
-  }
-
-  void _initializeWidgetOptions() {
-    _widgetOptions = <Widget>[
-      const MainScreen(),
-      const SentimentScreen(),
-      Home(camera: cameras[0], isActive: selectedIndex == 2),
-      const AboutScreen(),
-    ];
-  }
+  static const List<Widget> _widgetOptions = <Widget>[
+    const MainScreen(),
+    const SentimentScreen(),
+    const AboutScreen(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
-      _initializeWidgetOptions();
     });
   }
 
@@ -80,10 +59,6 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.sentiment_satisfied_alt),
             label: 'sentiment',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Camera',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
