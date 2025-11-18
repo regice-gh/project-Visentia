@@ -67,7 +67,7 @@ class _SentimentScreenState extends State<SentimentScreen> {
                 textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   labelText: 'Full name',
-                  hintText: 'e.g. Jane Student',
+                  hintText: 'e.g. John Doe',
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
