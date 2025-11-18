@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../theme/app_theme.dart';
 import 'weather_detail.screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -73,22 +74,22 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Main Screen'),
-        centerTitle: true,
-        backgroundColor: Colors.purple[200],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: AppSpacing.screenPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.section),
               child: Text(
-                'Current Weather:',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                'Current weather',
+                style: theme.textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -98,40 +99,38 @@ class _MainScreenState extends State<MainScreen> {
               Center(
                 child: Text(
                   _weatherError!,
-                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.error,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               )
             else
               Card(
-                elevation: 4,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(AppSpacing.section),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         _temperature != null
-                            ? 'Temperature: $_temperature°C'
+                            ? 'Temperature: ${_temperature!.toStringAsFixed(1)}°C'
                             : 'Temperature: N/A',
-                        style: const TextStyle(fontSize: 18),
+                        style: theme.textTheme.titleMedium,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: AppSpacing.item),
                       Text(
                         _isDay != null
                             ? 'Daytime: ${_isDay! ? 'Yes' : 'No'}'
                             : 'Daytime: N/A',
-                        style: const TextStyle(fontSize: 18),
+                        style: theme.textTheme.bodyLarge,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: AppSpacing.item),
                       Text(
                         'Time: ${_formatUnixTime(_weatherTimeUnix)}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
+                        style: theme.textTheme.bodyMedium,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: AppSpacing.section),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
@@ -145,12 +144,13 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           );
                         },
-                        child: const Text('Bekijk details'),
+                        child: const Text('View details'),
                       ),
                     ],
                   ),
                 ),
               ),
+            const Spacer(),
           ],
         ),
       ),

@@ -17,7 +17,8 @@ class SentimentService {
       final String result =
           await platform.invokeMethod('predictSentiment', {'text': text});
       return result;
-    } on PlatformException catch (e) {
+    } catch (e) {
+      print(e);
       return null;
     }
   }

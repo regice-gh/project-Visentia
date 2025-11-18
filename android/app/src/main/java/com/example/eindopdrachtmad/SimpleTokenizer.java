@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.util.Log;
-
 /**
  * Simple tokenizer that reads a Hugging Face tokenizer.json and performs basic tokenization.
  */
@@ -50,12 +48,10 @@ public class SimpleTokenizer {
         
         // Basic tokenization: split on spaces and punctuation
         List<String> tokens = basicTokenize(text);
-        Log.d("SimpleTokenizer", "Basic Tokens: " + tokens.toString());
         
         // Convert tokens to IDs
         List<Integer> inputIds = new ArrayList<>();
         inputIds.add(clsTokenId); // Add [CLS] token at start
-        Log.d("SimpleTokenizer", "[CLS] Token ID: " + clsTokenId);
         
         for (String token : tokens) {
             Integer id = vocab.get(token);
@@ -65,23 +61,18 @@ public class SimpleTokenizer {
                 for (String subToken : subTokens) {
                     Integer subId = vocab.getOrDefault(subToken, vocab.getOrDefault("[UNK]", 100));
                     inputIds.add(subId);
-                    Log.d("SimpleTokenizer", "Token: '" + subToken + "' -> ID: " + subId);
                 }
             } else {
                 inputIds.add(id);
-                Log.d("SimpleTokenizer", "Token: '" + token + "' -> ID: " + id);
             }
         }
         
         inputIds.add(sepTokenId); // Add [SEP] token at end
-        Log.d("SimpleTokenizer", "[SEP] Token ID: " + sepTokenId);
-        Log.d("SimpleTokenizer", "Raw Input IDs (before truncation): " + inputIds.toString());
         
         // Truncate if too long
         if (inputIds.size() > maxLength) {
             inputIds = inputIds.subList(0, maxLength - 1);
             inputIds.add(sepTokenId);
-            Log.d("SimpleTokenizer", "Input IDs after truncation: " + inputIds.toString());
         }
         
         // Create attention mask (all 1s for real tokens)

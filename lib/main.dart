@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:eindopdrachtmad/screens/about.screen.dart';
+import 'package:eindopdrachtmad/screens/gamble.screen.dart';
 import 'package:eindopdrachtmad/screens/home.screen.dart';
 import 'package:eindopdrachtmad/screens/sentiment.screen.dart';
+import 'package:eindopdrachtmad/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Eindopdracht MAD',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
       home: const MainNavigation(),
     );
   }
@@ -37,6 +36,7 @@ class _MainNavigationState extends State<MainNavigation> {
   static const List<Widget> _widgetOptions = <Widget>[
     const MainScreen(),
     const SentimentScreen(),
+    const GambleScreen(),
     const AboutScreen(),
   ];
 
@@ -60,6 +60,8 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.sentiment_satisfied_alt),
             label: 'sentiment',
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.casino_outlined), label: 'gambling'),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
             label: 'About',

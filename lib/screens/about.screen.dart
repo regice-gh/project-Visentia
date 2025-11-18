@@ -29,24 +29,18 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
             SizedBox(height: 24),
             Text(
-              'Gebruikte packages:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text('- http (MIT License) – opgehaald van pub.dev'),
-            SizedBox(height: 24),
-            Text(
               'Licenties voor assets:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text(
-                '• assets/sentiment/model.onnx – HuggingFace sentiment model, Apache 2.0'),
-            Text(
-                '• assets/sentiment/tokenizer.json – HuggingFace tokenizer, Apache 2.0'),
+            Text('• assets/sentiment/model.onnx – HuggingFace sentiment model'),
+            Text('• assets/sentiment/tokenizer.json – HuggingFace tokenizer\n'),
+            Text('Creator: Tabularis.ai\n'
+                'License Type: CC BY-NC 4.0\n'
+                'https://huggingface.co/tabularisai/multilingual-sentiment-analysis'),
             SizedBox(height: 24),
             Text(
-              'Ontwikkeld door: Gijs Lueb (2025)',
+              'Made by: Gijs Lueb (2025)',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ],
