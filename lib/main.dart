@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:eindopdrachtmad/screens/about.screen.dart';
 import 'package:eindopdrachtmad/screens/gamble.screen.dart';
 import 'package:eindopdrachtmad/screens/home.screen.dart';
-import 'package:eindopdrachtmad/screens/sentiment.screen.dart';
+import 'package:eindopdrachtmad/screens/form.screen.dart';
 import 'package:eindopdrachtmad/theme/app_theme.dart';
 
 void main() {
@@ -35,8 +35,8 @@ class _MainNavigationState extends State<MainNavigation> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     const MainScreen(),
-    const SentimentScreen(),
     const GambleScreen(),
+    const SentimentScreen(),
     const AboutScreen(),
   ];
 
@@ -57,11 +57,11 @@ class _MainNavigationState extends State<MainNavigation> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.house), label: 'Main'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sentiment_satisfied_alt),
-            label: 'sentiment',
-          ),
-          BottomNavigationBarItem(
               icon: Icon(Icons.casino_outlined), label: 'gambling'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.collections_bookmark),
+            label: 'Form',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
             label: 'About',
@@ -70,6 +70,8 @@ class _MainNavigationState extends State<MainNavigation> {
         currentIndex: selectedIndex,
         selectedItemColor: Colors.purpleAccent[100],
         unselectedItemColor: Colors.purple[200],
+        iconSize: 25,
+        elevation: 5,
         onTap: _onItemTapped,
       ),
     );

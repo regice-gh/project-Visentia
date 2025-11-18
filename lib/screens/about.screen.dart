@@ -25,20 +25,30 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
             SizedBox(height: 12),
             Text(
-              'Deze app laat zien hoe je weerdata en sentimentanalyse combineert in Flutter.',
+              'Deze app demonstreert hoe je consistente theming, formulieren met validatie en spelelementen bouwt in Flutter.',
             ),
             SizedBox(height: 24),
             Text(
-              'Licenties voor assets:',
+              'Functionaliteiten:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text('• assets/sentiment/model.onnx – HuggingFace sentiment model'),
-            Text('• assets/sentiment/tokenizer.json – HuggingFace tokenizer\n'),
-            Text('Creator: Tabularis.ai\n'
-                'License Type: CC BY-NC 4.0\n'
-                'https://huggingface.co/tabularisai/multilingual-sentiment-analysis'),
+            Text('• Weer-overzicht met detailpagina'),
+            Text('• Studentformulier met validatie en feedback'),
+            Text('• Dobbelspel met dice-poker ranking'),
             SizedBox(height: 24),
+            Text(
+              'Assets:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text('• Dice-afbeeldingen gevonden op internet'),
+            Text('• Weather api gevonden op internet'),
+            SizedBox(height: 24),
+            Text('weather API license:\n'
+                '• CC BY 4.0 License Requirement\n'
+                '• https://open-meteo.com\n'),
+            Text('This project is for educational purposes only.\n'),
             Text(
               'Made by: Gijs Lueb (2025)',
               style: TextStyle(fontStyle: FontStyle.italic),
