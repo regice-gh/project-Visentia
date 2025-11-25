@@ -36,7 +36,7 @@ class _MainNavigationState extends State<MainNavigation> {
   static const List<Widget> _widgetOptions = <Widget>[
     const MainScreen(),
     const GambleScreen(),
-    const SentimentScreen(),
+    const FormScreen(),
     const AboutScreen(),
   ];
 

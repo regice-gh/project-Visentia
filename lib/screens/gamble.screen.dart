@@ -25,17 +25,15 @@ class _GambleScreenState extends State<GambleScreen> {
   }
 
   void _refreshState() {
-    diceEyeImagePaths
-      ..clear()
-      ..addAll(dices.map(
-        (value) => 'assets/img/dice_eyes/dice_eyes_$value.jpg',
-      ));
+    diceEyeImagePaths.clear();
+    diceEyeImagePaths.addAll(dices.map(
+      (value) => 'assets/img/dice_eyes/dice_eyes_$value.jpg',
+    ));
 
-    realDiceImagePaths
-      ..clear()
-      ..addAll(dices.map(
-        (value) => 'assets/img/real_dice/real_dice_$value.jpg',
-      ));
+    realDiceImagePaths.clear();
+    realDiceImagePaths.addAll(dices.map(
+      (value) => 'assets/img/real_dice/real_dice_$value.jpg',
+    ));
 
     _handResult = _describeHand(dices);
   }
@@ -49,14 +47,13 @@ class _GambleScreenState extends State<GambleScreen> {
     });
   }
 
-  String _describeHand(List<int> dice) {
-    final sortedDice = [...dice]..sort(); //use copy so the UI doesn't break
+  String _describeHand(List<int> dices) {
+    final sortedDice = [...dices]..sort(); //use copy so the UI doesn't break
     final counts = <int, int>{};
 
     for (final value in sortedDice) {
       counts.update(value, (prev) => prev + 1, ifAbsent: () => 1);
     }
-
     final occurrences = counts.values.toList()..sort((a, b) => b.compareTo(a));
     final pairCount = occurrences.where((value) => value == 2).length;
 

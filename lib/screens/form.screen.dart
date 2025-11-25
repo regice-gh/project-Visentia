@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_theme.dart';
+import 'submissionPreview.dart';
 
-class SentimentScreen extends StatefulWidget {
-  const SentimentScreen({super.key});
+class FormScreen extends StatefulWidget {
+  const FormScreen({super.key});
 
   @override
-  State<SentimentScreen> createState() => _SentimentScreenState();
+  State<FormScreen> createState() => _FormScreenState();
 }
 
-class _SentimentScreenState extends State<SentimentScreen> {
+class _FormScreenState extends State<FormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -115,8 +116,8 @@ class _SentimentScreenState extends State<SentimentScreen> {
                   if (value == null || value.trim().isEmpty) {
                     return 'Please provide a message';
                   }
-                  if (value.trim().length < 10) {
-                    return 'Message should be at least 10 characters';
+                  if (value.trim().length < 5) {
+                    return 'Message should be at least 5 characters';
                   }
                   return null;
                 },
@@ -126,33 +127,12 @@ class _SentimentScreenState extends State<SentimentScreen> {
                 onPressed: _submit,
                 child: const Text('Submit form'),
               ),
-              if (_showSuccess) ...[
-                const SizedBox(height: AppSpacing.section),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.section),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Submission preview',
-                          style: theme.textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: AppSpacing.item),
-                        Text('Name: ${_nameController.text.trim()}'),
-                        Text('Email: ${_emailController.text.trim()}'),
-                        const SizedBox(height: AppSpacing.small),
-                        Text('Message:'),
-                        const SizedBox(height: AppSpacing.small),
-                        Text(
-                          _messageController.text.trim(),
-                          style: theme.textTheme.bodyMedium,
-                        ),
-                      ],
-                    ),
-                  ),
+              if (_showSuccess)
+                SubmissionPreview(
+                  name: _nameController.text.trim(),
+                  email: _emailController.text.trim(),
+                  message: _messageController.text.trim(),
                 ),
-              ],
             ],
           ),
         ),

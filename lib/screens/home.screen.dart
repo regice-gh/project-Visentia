@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  //State Variables Weather API
+  //Variables Weather API
   bool _isLoadingWeather = true;
   String? _weatherError;
   double? _temperature;

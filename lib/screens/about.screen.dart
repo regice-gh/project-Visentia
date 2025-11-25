@@ -20,30 +20,30 @@ class _AboutScreenState extends State<AboutScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              'Eindopdracht MAD',
+              'MAD final assessment',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12),
             Text(
-              'Deze app demonstreert hoe je consistente theming, formulieren met validatie en spelelementen bouwt in Flutter.',
+              'This app demonstrates how to build consistent theming, forms with validation, and game elements in Flutter.',
             ),
             SizedBox(height: 24),
             Text(
-              'Functionaliteiten:',
+              'Features:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text('• Weer-overzicht met detailpagina'),
-            Text('• Studentformulier met validatie en feedback'),
-            Text('• Dobbelspel met dice-poker ranking'),
+            Text('• Weather overview with detail page'),
+            Text('• Student form with validation and feedback'),
+            Text('• Dice game with dice-poker ranking'),
             SizedBox(height: 24),
             Text(
               'Assets:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text('• Dice-afbeeldingen gevonden op internet'),
-            Text('• Weather api gevonden op internet'),
+            Text('• Dice images found online'),
+            Text('• Weather API found online'),
             SizedBox(height: 24),
             Text('weather API license:\n'
                 '• CC BY 4.0 License Requirement\n'
