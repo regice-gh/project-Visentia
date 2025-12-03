@@ -1,12 +1,12 @@
 # project-Visentia
-A Flutter application that combines near real-time weather data with on-device sentiment analysis.
+A Flutter application that combines near real-time weather data with a gambling game known as dice poker.
 
 ## Overview
 
 This project explores how to integrate external APIs and native code with Flutter. The app currently features:
 
 * **Weather dashboard** – Fetches current conditions for Eindhoven using the Open-Meteo API.
-* **Sentiment analysis** – Evaluates user-provided text through a platform channel backed by an ONNX model.
+* **Dice Poker** – A gambling game were you roll 5 dices and see real results, it does not feature in game money and real betting.
 * **About section** – Summarises the tech stack and licensing details for bundled assets.
 
 ## Getting Started
@@ -17,5 +17,7 @@ This project explores how to integrate external APIs and native code with Flutte
 
 ## Credits
 
-Sentiment assets are based on HuggingFace models licensed under Apache 2.0.
+Weather api data fetched from [Open-Meteo](https://open-meteo.com/)
+
+This project is for educational purposes only.
 

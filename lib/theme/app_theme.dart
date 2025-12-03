@@ -32,7 +32,6 @@ class AppTheme {
           ),
         ),
         cardTheme: CardThemeData(
-          // Changed from CardTheme to CardThemeData
           color: Colors.white,
           elevation: 3,
           shape: RoundedRectangleBorder(
