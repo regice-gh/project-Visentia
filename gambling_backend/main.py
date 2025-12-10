@@ -10,6 +10,7 @@ from sqlalchemy import text
 from datetime import datetime, timedelta, timezone
 from jose import jwt, JWTError
 from schemas import Token, UserLogin
+from uuid import uuid4
 
 Base.metadata.create_all(bind=engine)
 
@@ -20,6 +21,9 @@ pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 SECRET_KEY = "123456789abcdef123456789abcdef"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+def get_random_secret_key():
+    return uuid4().hex
 
 def get_password_hash(password):
     return pwd_context.hash(password)
@@ -45,7 +49,25 @@ def test_db(db: Session = Depends(get_db)):
         return {"status": "Database Connected Successfully", "result": result.scalar()}
     except Exception as e:
         return {"status": "Connection Failed", "error": str(e)}
+
+@app.post("/guest-login", response_model=Token)
+def guest_login(db: Session = Depends(get_db)):
+    guest_id = str(uuid4().hex[:8])
+    guest_username = f"guest_{guest_id}"
+    guest_password = uuid4().hex
     
+    hashed_pw = get_password_hash(guest_password)
+    
+    new_user = User(username=guest_username, hashed_password=hashed_pw)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    access_token = create_access_token(data={"sub": new_user.username})
+    
+    return {"access_token": access_token, "token_type": "bearer"}
+    
+ 
 @app.post("/register", response_model=UserResponse)
 def register(user: UserCreate, db: Session = Depends(get_db)):
     
