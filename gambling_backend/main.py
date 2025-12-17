@@ -4,6 +4,7 @@
 
 #imports
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from database import engine, Base, get_db
 from models import User
@@ -44,14 +45,16 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-def get_current_user(token: str = Depends(lambda: None), db: Session = Depends(get_db)):
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
-            raise HTTPException(status_code=401, detail="Invalid token")
-    except:
-        raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(status_code=401, detail="Invalid token payload")
+    except Exception as e:
+        print(f"Token Error: {e}") # Print error to terminal for debugging
+        raise HTTPException(status_code=401, detail="Could not validate credentials")
     
     user = db.query(User).filter(User.username == username).first()
     if user is None:
