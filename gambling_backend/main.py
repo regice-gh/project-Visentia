@@ -111,6 +111,17 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     
     return new_user
 
+@app.delete("/delete-account", status_code=204)
+def delete_own_account(
+    db: Session = Depends(get_db), 
+    current_user: User = Depends(get_current_user)
+):
+    db.delete(current_user)
+    
+    db.commit()
+    
+    return
+
 #game endpoint & logic
 @app.post("/roll", response_model=DiceRollResponse)
 def roll_dice(bets: DiceRollRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
